@@ -8,7 +8,6 @@
 
 import UIKit
 import AlamofireImage
-import KRActivityIndicatorView
 import PKHUD
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource {
@@ -17,7 +16,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     
     var movies: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
-     var activityIndicator = KRActivityIndicatorView()
+    
 //
     override func viewDidLoad() {
         super.viewDidLoad()
