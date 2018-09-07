@@ -101,7 +101,16 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
-   
+    
+    //initiation the segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tableView.indexPath(for: cell) {
+           let movie = movies[indexPath.row]
+            let viewController = segue.destination as! ViewController
+            viewController.movies = movie
+        }
+    }
     
     
     
