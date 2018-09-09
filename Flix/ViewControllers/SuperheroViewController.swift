@@ -24,6 +24,17 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(SuperheroViewController.didPullToRefresh(_:)), for: .valueChanged)
         collectionView.insertSubview(refreshControl, at: 0)
+        //dynamically layout the rows for the cells
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = layout.minimumInteritemSpacing
+        let cellsPerLine: CGFloat = 2
+        let interItemSpacing = layout.minimumInteritemSpacing * (cellsPerLine - 1)
+        let widthCell = collectionView.frame.size.width / cellsPerLine - interItemSpacing / cellsPerLine
+    
+        layout.itemSize = CGSize(width: widthCell
+            , height: widthCell * 3 / 2)
+        
         fetchMovie()
 
         // Do any additional setup after loading the view.
@@ -43,7 +54,7 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     func fetchMovie() {
     //network referesh
     
-    let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
+    let url = URL(string: "https://api.themoviedb.org/3/movie/299536/similar?api_key=cdf346175dd9dfbec2de401cfb1d27e6")!
     let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
     //start the HUD
     PKHUD.sharedHUD.contentView = PKHUDProgressView()
@@ -86,6 +97,16 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         let posterURL = URL(string: baseURL + posterPath)!
         cell.posterImage.af_setImage(withURL: posterURL)
         return cell
+    }
+    
+    //initiation the segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UICollectionViewCell
+        if let indexPath = collectionView.indexPath(for: cell) {
+            let movie = movies[indexPath.row]
+            let movieController = segue.destination as! MovieController
+            movieController.movies = movie
+        }
     }
     
     
