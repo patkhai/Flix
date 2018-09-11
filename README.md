@@ -66,7 +66,7 @@ Describe any challenges encountered while building the app.
 
 **Flicks** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: ** 6 ** hours spent in total
+Time spent: ** 8 ** hours spent in total
 
 ## User Stories
 
@@ -78,10 +78,10 @@ The following **required** functionality is completed:
 The following **stretch** features are implemented:
 
 - [x] User can tap a poster in the collection view to see a detail screen of that movie (+3pts)
-- [ ] In the detail view, when the user taps the poster, a new screen is presented modally where they can view the trailer (+3pts)
-- [ ] Customize the navigation bar (+1pt)
-- [ ] List in any optionals you didn't finish from last week (+1-3pts)
-   - ...
+- [x] In the detail view, when the user taps the poster, a new screen is presented modally where they can view the trailer (+3pts)
+- [x] Customize the navigation bar (+1pt)
+- [x] List in any optionals you didn't finish from last week (+1-3pts)
+   - Network Alert Error
    - ...
 
 The following **additional** features are implemented:
@@ -98,7 +98,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-![Imgur](https://i.imgur.com/njaj904.gif)
+![Imgur](https://i.imgur.com/vPmcyPL.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
