@@ -18,28 +18,60 @@ class MovieController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     
+
     @IBOutlet weak var detailLabel: UILabel!
 
     
     var movies: [String: Any]?
+    @IBOutlet weak var posterLabel: UIImageView!
+    
+ 
+    @IBAction func posterTap(_ sender: UITapGestureRecognizer) {
+        performSegue(withIdentifier: "Trailer", sender: nil)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
 
         
         if let movie = movies {
-            titleLabel.text = movie["title"] as? String
-            releaseDateLabel.text = movie["release_date"] as? String
-            detailLabel.text = movie["overview"] as? String
-            let backdropPath = movie["poster_path"] as! String
+            titleLabel.text = movie[MovieKeys.title] as? String
+            releaseDateLabel.text = movie[MovieKeys.releaseDate] as? String
+            detailLabel.text = movie[MovieKeys.overView] as? String
+            let backdropPath = movie[MovieKeys.backdropPath] as! String
+            let posterPath = movie[MovieKeys.posterPath] as! String
             let baseURL = "https://image.tmdb.org/t/p/w500"
             let backdropURL = URL(string: baseURL + backdropPath)!
             backDrop.af_setImage(withURL: backdropURL)
-           
-           
-            
+            let posterURL = URL(string: baseURL + posterPath)!
+            posterLabel.af_setImage(withURL: posterURL)
+//
+//            // The didTap: method will be defined in Step 3 below.
+//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTap(sender:)))
+//
+//            // Optionally set the number of required taps, e.g., 2 for a double click
+//            tapGestureRecognizer.numberOfTapsRequired = 1
+//
+//            // Attach it to a view of your choice. If it's a UIImageView, remember to enable user interaction
+//            posterLabel.isUserInteractionEnabled = true
+//            posterLabel.addGestureRecognizer(tapGestureRecognizer)
+//
+//
         }
+//
+        
        
+    }
+    
+   
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let trailerController = segue.destination as! TrailerViewController
+        //from the trailer variable movies and pass it to this movies variable
+        trailerController.movie = self.movies
     }
         
  

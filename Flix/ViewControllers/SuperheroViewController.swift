@@ -54,7 +54,7 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     func fetchMovie() {
     //network referesh
     
-    let url = URL(string: "https://api.themoviedb.org/3/movie/299536/similar?api_key=cdf346175dd9dfbec2de401cfb1d27e6")!
+    let url = URL(string: "https://api.themoviedb.org/3/movie/299536/similar?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
     let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
     //start the HUD
     PKHUD.sharedHUD.contentView = PKHUDProgressView()
@@ -68,6 +68,7 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         
         //Network request returns
         if let error = error {
+            self.alertControl()
             print(error.localizedDescription)
         } else if let data = data {
             //parse the API network and turn it into dictionary
@@ -106,6 +107,20 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
             let movie = movies[indexPath.row]
             let movieController = segue.destination as! MovieController
             movieController.movies = movie
+        }
+    }
+    
+    
+    func alertControl () {
+        let alertController = UIAlertController(title: "No Network Detected", message: "Connect to Network and Try Again" , preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {(action) in
+            
+        }
+        alertController.addAction(cancelAction)
+        let OKAction = UIAlertAction(title: "OK", style: .cancel) { (action) in }
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true) {
+            // optional code for what happens after the alert controller has finished presenting
         }
     }
     

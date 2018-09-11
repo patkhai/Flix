@@ -55,12 +55,14 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request) {(data, response, error) in
             //end the HUD
-            
+        
             PKHUD.sharedHUD.hide(afterDelay: 1.0)
             
             //Network request returns
             if let error = error {
+                self.alertControl()
                 print(error.localizedDescription)
+                
             } else if let data = data {
                 //parse the API network and turn it into dictionary
                 let dataDictionary =  try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any] //cast dictionary[]
@@ -73,8 +75,24 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
 //               self.activityIndicator.startAnimating()
                 
             }
+            
         }
         task.resume()
+    }
+    
+    func alertControl () {
+        let alertController = UIAlertController(title: "No Network Detected", message: "Connect to Network and Try Again" , preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .cancel) { (action) in }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {(action) in
+            
+        }
+       
+        
+        alertController.addAction(OKAction)
+         alertController.addAction(cancelAction)
+        self.present(alertController, animated: true) {
+            // optional code for what happens after the alert controller has finished presenting
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

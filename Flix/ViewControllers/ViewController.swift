@@ -14,6 +14,7 @@ enum MovieKeys {
     static let overView = "overview"
     static let backdropPath = "backdrop_path"
     static let posterPath = "poster_path"
+    static let movieID = "id"
 }
 
 class ViewController: UIViewController {
