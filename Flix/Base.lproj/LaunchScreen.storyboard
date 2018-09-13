@@ -18,25 +18,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="launch_image" translatesAutoresizingMaskIntoConstraints="NO" id="Fl5-E7-wPJ">
-                                <rect key="frame" x="132" y="263" width="150" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flix" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCx-Hn-NG6">
-                                <rect key="frame" x="182" y="399" width="50" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flix" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCx-Hn-NG6">
+                                <rect key="frame" x="0.0" y="395.33333333333331" width="414" height="40.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="launch_image" translatesAutoresizingMaskIntoConstraints="NO" id="Fl5-E7-wPJ">
+                                <rect key="frame" x="118" y="216.33333333333337" width="178" height="139"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="178" id="3P3-r3-Cja"/>
+                                    <constraint firstAttribute="height" constant="139" id="HKq-KH-4GW"/>
+                                    <constraint firstAttribute="height" constant="139" id="aQq-il-eXa"/>
+                                    <constraint firstAttribute="width" constant="178" id="vq0-wH-sIp"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="3P3-r3-Cja"/>
+                                        <exclude reference="HKq-KH-4GW"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="3P3-r3-Cja"/>
+                                        <include reference="HKq-KH-4GW"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="hCx-Hn-NG6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5bh-Dv-ejx"/>
+                            <constraint firstItem="Fl5-E7-wPJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="150" id="ID0-8M-4Jj"/>
+                            <constraint firstItem="hCx-Hn-NG6" firstAttribute="top" secondItem="Fl5-E7-wPJ" secondAttribute="bottom" constant="40" id="NBR-Hr-rap"/>
+                            <constraint firstItem="hCx-Hn-NG6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="UGJ-KZ-wqa"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Fl5-E7-wPJ" secondAttribute="bottom" constant="137" id="iSq-NS-6HO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hCx-Hn-NG6" secondAttribute="bottom" constant="300" id="ncV-oJ-SU3"/>
+                            <constraint firstItem="Fl5-E7-wPJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="279" id="pYW-EW-qEK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Fl5-E7-wPJ" secondAttribute="trailing" constant="279" id="peT-AV-hUy"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="iSq-NS-6HO"/>
+                                <exclude reference="peT-AV-hUy"/>
+                                <exclude reference="ID0-8M-4Jj"/>
+                                <exclude reference="pYW-EW-qEK"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="iSq-NS-6HO"/>
+                                <include reference="peT-AV-hUy"/>
+                                <include reference="ID0-8M-4Jj"/>
+                                <include reference="pYW-EW-qEK"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52.173913043478265" y="374.18478260869568"/>
+            <point key="canvasLocation" x="191.30434782608697" y="363.58695652173918"/>
         </scene>
     </scenes>
     <resources>
