@@ -18,27 +18,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Flix" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCx-Hn-NG6">
-                                <rect key="frame" x="182" y="395.33333333333331" width="50" height="41"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_image" translatesAutoresizingMaskIntoConstraints="NO" id="Fl5-E7-wPJ">
+                                <rect key="frame" x="143" y="158" width="133" height="139"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="133" id="Bg0-OS-2An"/>
+                                    <constraint firstAttribute="height" constant="139" id="w9n-u8-SFj"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flix" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCx-Hn-NG6">
+                                <rect key="frame" x="182" y="326" width="50" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="launch_image" translatesAutoresizingMaskIntoConstraints="NO" id="Fl5-E7-wPJ">
-                                <rect key="frame" x="118" y="216.33333333333337" width="178" height="139"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="178" id="Koi-iP-6v1"/>
-                                    <constraint firstAttribute="height" constant="139" id="cRq-pH-idl"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hCx-Hn-NG6" secondAttribute="trailing" constant="182" id="HmH-ri-8dh"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Fl5-E7-wPJ" secondAttribute="trailing" constant="118" id="JxZ-b8-tD3"/>
-                            <constraint firstItem="hCx-Hn-NG6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="182" id="UYA-w8-FEh"/>
-                            <constraint firstItem="Fl5-E7-wPJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="118" id="bxc-Xf-J5k"/>
-                            <constraint firstItem="hCx-Hn-NG6" firstAttribute="top" secondItem="Fl5-E7-wPJ" secondAttribute="bottom" constant="40" id="gKT-x4-OQg"/>
+                            <constraint firstItem="hCx-Hn-NG6" firstAttribute="top" secondItem="Fl5-E7-wPJ" secondAttribute="bottom" constant="29" id="2HE-mq-C7z"/>
+                            <constraint firstItem="hCx-Hn-NG6" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="48S-sW-Y8M"/>
+                            <constraint firstItem="Fl5-E7-wPJ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" constant="0.5" id="D7A-fz-DN3"/>
+                            <constraint firstItem="hCx-Hn-NG6" firstAttribute="top" secondItem="Fl5-E7-wPJ" secondAttribute="bottom" constant="29" id="Uyy-6m-iJO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hCx-Hn-NG6" secondAttribute="trailing" constant="182" id="Vpe-Xq-Kva"/>
+                            <constraint firstItem="Fl5-E7-wPJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="138" id="dEe-jo-QQn"/>
+                            <constraint firstItem="Fl5-E7-wPJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="143" id="mJa-sj-fhB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Fl5-E7-wPJ" secondAttribute="trailing" constant="138" id="nRe-Nd-gO3"/>
+                            <constraint firstItem="hCx-Hn-NG6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="182" id="xNt-Sa-qIU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

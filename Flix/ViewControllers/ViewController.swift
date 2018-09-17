@@ -32,6 +32,10 @@ class ViewController: UIViewController {
     
     var movies: [String: Any]?
     
+    @IBAction func posterTap(_ sender: UITapGestureRecognizer) {
+        performSegue(withIdentifier: "Trailer", sender: nil)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +54,18 @@ class ViewController: UIViewController {
             
         }
     }
- 
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let MovieController = segue.destination as! MovieTrailerController
+        //from the trailer variable movies and pass it to this movies variable
+        MovieController.movie = self.movies
+    }
+    
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

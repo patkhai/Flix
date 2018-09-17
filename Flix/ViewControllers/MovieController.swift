@@ -13,7 +13,7 @@ import AlamofireImage
 
 class MovieController: UIViewController {
 
-    @IBOutlet weak var backDrop: UIImageView!
+
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
@@ -40,11 +40,9 @@ class MovieController: UIViewController {
             titleLabel.text = movie[MovieKeys.title] as? String
             releaseDateLabel.text = movie[MovieKeys.releaseDate] as? String
             detailLabel.text = movie[MovieKeys.overView] as? String
-            let backdropPath = movie[MovieKeys.backdropPath] as! String
+        
             let posterPath = movie[MovieKeys.posterPath] as! String
             let baseURL = "https://image.tmdb.org/t/p/w500"
-            let backdropURL = URL(string: baseURL + backdropPath)!
-            backDrop.af_setImage(withURL: backdropURL)
             let posterURL = URL(string: baseURL + posterPath)!
             posterLabel.af_setImage(withURL: posterURL)
 //

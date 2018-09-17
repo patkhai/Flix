@@ -46,7 +46,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     func fetchMovies(){
         //network referesh
        
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US&page=1")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         //start the HUD
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
