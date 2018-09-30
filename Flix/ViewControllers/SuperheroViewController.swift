@@ -14,7 +14,7 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var movies: [[String: Any]] = []
+    var movies: [Movie?] = []
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -31,7 +31,9 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         let cellsPerLine: CGFloat = 2
         let interItemSpacing = layout.minimumInteritemSpacing * (cellsPerLine - 1)
         let widthCell = collectionView.frame.size.width / cellsPerLine - interItemSpacing / cellsPerLine
-    
+        //start the HUD
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show(onView: collectionView)
         layout.itemSize = CGSize(width: widthCell
             , height: widthCell * 3 / 2)
         
@@ -53,37 +55,20 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     
     func fetchMovie() {
     //network referesh
-    
-    let url = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US&page=1")!
-    let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-    //start the HUD
-    PKHUD.sharedHUD.contentView = PKHUDProgressView()
-    PKHUD.sharedHUD.show(onView: collectionView)
-    
-    let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-    let task = session.dataTask(with: request) {(data, response, error) in
-        //end the HUD
-        
-        PKHUD.sharedHUD.hide(afterDelay: 1.0)
-        
-        //Network request returns
-        if let error = error {
-            self.alertControl()
-            print(error.localizedDescription)
-        } else if let data = data {
-            //parse the API network and turn it into dictionary
-            let dataDictionary =  try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any] //cast dictionary[]
-            //will get all the movies title in the api
-            let movies = dataDictionary["results"] as! [[String: Any]]
+
+
+        APIManager().popularMovies{ (movies : [Movie]?, error: Error?) in
+            if let movies = movies {
+                self.movies = movies
             //need this becsaue the system is call the Network api very fast
-            self.movies = movies
+         PKHUD.sharedHUD.hide(afterDelay: 1.0)
             self.collectionView.reloadData()
             self.refreshControl.endRefreshing()
             
             
+            }
         }
-    }
-    task.resume()
+
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -92,23 +77,19 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PosterCell", for: indexPath) as! PosterCell
-        let movie = movies[indexPath.item]
-        let posterPath = movie[MovieKeys.posterPath] as! String
-        let baseURL = "https://image.tmdb.org/t/p/w500"
-        let posterURL = URL(string: baseURL + posterPath)!
-        cell.posterImage.af_setImage(withURL: posterURL)
+         cell.movie = self.movies[indexPath.item]
+      
         return cell
     }
     
     //initiation the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! UICollectionViewCell
-        if let indexPath = collectionView.indexPath(for: cell) {
-            let movie = movies[indexPath.row]
-            let movieController = segue.destination as! MovieController
-            movieController.movies = movie
+        let indexPath = collectionView.indexPath(for: cell)!
+            let detailViewController = segue.destination as! ViewController
+            detailViewController.movies = self.movies[indexPath.row]
         }
-    }
+
     
     
     func alertControl () {
@@ -122,7 +103,7 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         self.present(alertController, animated: true) {
             // optional code for what happens after the alert controller has finished presenting
         }
-    }
+}
     
     
         

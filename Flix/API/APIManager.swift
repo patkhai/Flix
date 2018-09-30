@@ -20,19 +20,52 @@ init() {
 
 func nowPlayingMovies(completion: @escaping ([Movie]?, Error?) -> ()) {
     let url = URL(string: APIManager.baseUrl + "now_playing?api_key=\(APIManager.apiKey)")!
-    let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-    let task = session.dataTask(with: request) { (data, response, error) in
-        // This will run when the network request returns
-        if let data = data {
-            let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-            let movieDictionaries = dataDictionary["results"] as! [[String: Any]]
-            
-            let movies = Movie.movies(dictionaries: movieDictionaries)
-            completion(movies, nil)
-        } else {
-            completion(nil, error)
-        }
-    }
-    task.resume()
+    makeRequest(from: url, completion: completion)
 }
+func fetchTrailer(movieId id: Int, completion: @escaping (URLRequest?, Error?) -> ()) {
+        let url = URL(string: APIManager.baseUrl + "\(id)/videos?api_key=\(APIManager.apiKey)")!
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                completion(nil, error)
+            } else if let data = data {
+                let dataDictionary =  try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any] //cast dictionary[]
+                let videos = dataDictionary["results"] as! [[String: Any]]
+                let video = videos[0]
+                let key = video["key"] as! String
+                if  let youtubeURL = URL(string: "https://www.youtube.com/watch?v=" + key) {
+                    let youtubeRequest = URLRequest(url: youtubeURL)
+                completion(youtubeRequest, nil)
+                }
+            }
+        }
+        task.resume()
+    }
+    
+
+    
+    func popularMovies(completion: @escaping ([Movie]?, Error?) -> ()) {
+        let url = URL(string: APIManager.baseUrl + "popular?api_key=\(APIManager.apiKey)")!
+        makeRequest(from: url, completion: completion)
+    }
+    
+    
+    private func makeRequest(from url: URL, completion: @escaping ([Movie]?, Error?) -> ()) {
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
+        let task = session.dataTask(with: request) { (data, response, error) in
+            // This will run when the network request returns
+            
+            if let data = data {
+                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+                let movieDictionaries = dataDictionary["results"] as! [[String: Any]]
+                
+                let movies = Movie.movies(dictionaries: movieDictionaries)
+                completion(movies, nil)
+            } else {
+                completion(nil, error)
+            }
+        }
+        task.resume()
+    }
 }

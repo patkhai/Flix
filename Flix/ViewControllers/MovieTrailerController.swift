@@ -12,7 +12,8 @@ import WebKit
 class MovieTrailerController: UIViewController, WKUIDelegate {
 
     @IBOutlet weak var wkView: WKWebView!
-    var movie : [String: Any]?
+    var movie : Movie?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,32 +23,16 @@ class MovieTrailerController: UIViewController, WKUIDelegate {
     // Do any additional setup after loading the view.
     
     func fetchTrailer() {
-        let movieURL = "https://api.themoviedb.org/3/movie/"
-        let apiKey = "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US"
-        let movieID = movie! [MovieKeys.movieID] as! NSNumber
-        let urlPath = URL(string: movieURL + movieID.stringValue + apiKey)!
-        //network request
-        let urlRequest = URLRequest(url: urlPath, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        let task = session.dataTask(with: urlRequest) { (data, response, error) in
-            // run when the network request return
+        
+        let ID = movie?.movieID
+        APIManager().fetchTrailer(movieId: ID! ) { (request: URLRequest?, error: Error?) in
             if let error = error {
                 self.alertControl()
                 print(error.localizedDescription)
-            } else if let data = data {
-                //parse the API network and turn it into dictionary
-                let dataDictionary =  try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any] //cast dictionary[]
-                let videos = dataDictionary["results"] as! [[String: Any]]
-                
-                let video = videos[0]
-                let key = video["key"] as! String
-                if  let youtubeURL = URL(string: "https://www.youtube.com/watch?v=" + key) {
-                    let youtubeRequest = URLRequest(url: youtubeURL)
-                    self.wkView.load(youtubeRequest)
-                }
+            } else if let request = request {
+                self.wkView.load(request)
             }
         }
-        task.resume()
     }
     
     func alertControl () {

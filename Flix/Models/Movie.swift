@@ -12,6 +12,7 @@ class Movie {
     var title: String = ""
     var overview: String = ""
     var releaseDate: String = ""
+    var movieID: Int
     //movie URL properties
     var posterPathString: String?
     var backdropPathString: String?
@@ -27,6 +28,7 @@ class Movie {
         releaseDate = dictionary["release_date"] as? String ?? "Release date unavailable"
         posterPathString = dictionary["poster_path"] as? String
         backdropPathString = dictionary["backdrop_path"] as? String
+        movieID = (dictionary["id"] as? Int)!
         
         if let posterPathString = posterPathString {
             posterURL = URL(string: baseURLString + posterPathString)

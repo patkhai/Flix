@@ -29,8 +29,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var overviewLabel: UILabel!
     
-    
-    var movies: [String: Any]?
+    var movies: Movie?
+
     
     @IBAction func posterTap(_ sender: UITapGestureRecognizer) {
         performSegue(withIdentifier: "Trailer", sender: nil)
@@ -40,17 +40,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let movie = movies {
-            titleLabel.text = movie[MovieKeys.title] as? String
-            releaseDateLabel.text = movie[MovieKeys.releaseDate] as? String
-            overviewLabel.text = movie[MovieKeys.overView] as? String
-            let backdropPath = movie[MovieKeys.backdropPath] as! String
-            let posterPath = movie[MovieKeys.posterPath] as! String
-            let baseURL = "https://image.tmdb.org/t/p/w500"
-            let backdropURL = URL(string: baseURL + backdropPath)!
-            backDropImage.af_setImage(withURL: backdropURL)
-            let posterURL = URL(string: baseURL + posterPath)!
-            posterImage.af_setImage(withURL: posterURL)
+        if let movie = self.movies {
+            titleLabel.text = movie.title
+            releaseDateLabel.text = movie.releaseDate
+            overviewLabel.text = movie.overview
+            backDropImage.af_setImage(withURL: movie.backdropURL!)
+            posterImage.af_setImage(withURL: movie.posterURL!)
             
         }
     }

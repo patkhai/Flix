@@ -14,7 +14,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
     
-    var movies: [[String: Any]] = []
+    var movies: [Movie]? = []
     var refreshControl: UIRefreshControl!
     
 //
@@ -24,6 +24,9 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
         tableView.dataSource = self
+        //start the HUD
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show(onView: tableView)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         fetchMovies()
@@ -46,39 +49,22 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     
     func fetchMovies(){
         //network referesh
-       
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US&page=1")!
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        //start the HUD
-        PKHUD.sharedHUD.contentView = PKHUDProgressView()
-        PKHUD.sharedHUD.show(onView: tableView)
-        
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        let task = session.dataTask(with: request) {(data, response, error) in
-            //end the HUD
-        
-            PKHUD.sharedHUD.hide(afterDelay: 1.0)
-            
-            //Network request returns
-            if let error = error {
-                self.alertControl()
-                print(error.localizedDescription)
-                
-            } else if let data = data {
-                //parse the API network and turn it into dictionary
-                let dataDictionary =  try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any] //cast dictionary[]
-                //will get all the movies title in the api
-                let movies = dataDictionary["results"] as! [[String: Any]]
-                //need this becsaue the system is call the Network api very fast
+        APIManager().nowPlayingMovies { ( movies : [Movie]?, error: Error?) in
+            if let movies = movies {
                 self.movies = movies
                 self.tableView.reloadData()
+        
+            //end the HUD
+        
+     
+
                 self.refreshControl.endRefreshing()
+        PKHUD.sharedHUD.hide(afterDelay: 1.0)
 //               self.activityIndicator.startAnimating()
                 
             }
             
         }
-        task.resume()
     }
     
     func alertControl () {
@@ -97,23 +83,15 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+       if let movies = self.movies {
+            return movies.count
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! TableViewMovieCell
-        let movie = movies[indexPath.row]
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
-        cell.titleLabel.text = title
-        cell.overviewLabel.text = overview
-        
-        
-        //get the image url from api config and actualy image path
-        let posterPathURL = movie["poster_path"] as! String
-        let baseURLString = "https://image.tmdb.org/t/p/w500"
-        let posterURL = URL(string: baseURLString +  posterPathURL)!
-        cell.posterImage.af_setImage(withURL: posterURL)
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! TableViewMovieCell
+        cell.movie = self.movies![indexPath.row]
        
         
         return cell
@@ -123,11 +101,11 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     //initiation the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! UITableViewCell
-        if let indexPath = tableView.indexPath(for: cell) {
-           let movie = movies[indexPath.row]
-            let viewController = segue.destination as! ViewController
-            viewController.movies = movie
-        }
+        let viewController = segue.destination as! ViewController
+        let indexPath = tableView.indexPath(for: cell)!
+        viewController.movies  = self.movies![indexPath.row]
+        
+        
     }
     
     
