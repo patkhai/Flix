@@ -132,6 +132,43 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app.
 
+# Lab 5 - *FLix*
+
+**Flix** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+
+Time spent: **2** hours spent in total
+
+## User Stories
+
+The following **required** user stories are complete:
+
+- [x] Create a movie model (+2pt)
+- [x] Implement the movie model (+2pt)
+- [x] Implement property observers (+2pt)
+- [x] Create a basic API Client (+2pt)
+
+The following **additional** user stories are implemented:
+
+- [x] List anything else that you can get done to improve the app functionality! (+1-3pts)
+
+Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
+
+1.Trailers
+2.Loading Views 
+
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+![Imgur](https://i.imgur.com/wMMbm5h.gif)
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
+## Notes
+
+Describe any challenges encountered while building the app.
+- Rebuilding everything 
+
 ## License
 
     Copyright [2018] [Patrick Khai]
@@ -147,3 +184,6 @@ Describe any challenges encountered while building the app.
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+    
+    
+ 
